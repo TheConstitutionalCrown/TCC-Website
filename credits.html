@@ -1,144 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TCC — Credits</title>
+<title>TCC — Credits</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            rgba(212,175,55,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 70% 70%,
+            rgba(212,175,55,.08),
+            transparent 30%
+        );
+
+    animation: move 15s infinite alternate ease-in-out;
+}
+
+@keyframes move {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.15);
+    }
+}
+
+.container {
+    max-width: 750px;
+}
+
+.crown {
+    font-size: 70px;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(45px, 8vw, 75px);
+    margin-bottom: 15px;
+}
+
+.gold {
+    color: #d4af37;
+}
+
+.subtitle {
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 45px;
+}
+
+.credits {
+    padding: 30px;
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 12px;
+    background: rgba(255,255,255,.03);
+}
+
+.credits p {
+    color: #aaa;
+    line-height: 2;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 25px;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: .25s;
+}
+
+.back:hover {
+    background: #d4af37;
+    color: #050505;
+    transform: translateY(-3px);
+}
+
+</style>
 </head>
 
 <body>
 
-<header>
+<div class="container">
 
-    <div class="logo">TCC</div>
+    <div class="crown">♛</div>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="credits.html">Credits</a>
-    </nav>
+    <h1>
+        TCC <span class="gold">CREDITS</span>
+    </h1>
 
-</header>
-
-
-<main>
-
-    <section class="credits-hero">
-
-        <p class="eyebrow">
-            THE CONSTITUTIONAL CROWN
-        </p>
-
-        <h1>CREDITS</h1>
-
-        <p>
-            The people behind TCC.
-        </p>
-
-    </section>
-
-
-    <section class="credits-section">
-
-        <div class="credit-card">
-
-            <span>01</span>
-
-            <div>
-                <h2>FOUNDERS</h2>
-
-                <p>
-                    TCC Leadership
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="credit-card">
-
-            <span>02</span>
-
-            <div>
-                <h2>DEVELOPMENT</h2>
-
-                <p>
-                    TCC Development Team
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="credit-card">
-
-            <span>03</span>
-
-            <div>
-                <h2>MAP DEVELOPMENT</h2>
-
-                <p>
-                    Map Developers & Builders
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="credit-card">
-
-            <span>04</span>
-
-            <div>
-                <h2>SYSTEMS</h2>
-
-                <p>
-                    Scripters & Systems Developers
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="credit-card">
-
-            <span>05</span>
-
-            <div>
-                <h2>COMMUNITY</h2>
-
-                <p>
-                    Everyone contributing to the TCC community.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <div class="footer-logo">TCC</div>
-
-    <p>
-        THE CONSTITUTIONAL CROWN
+    <p class="subtitle">
+        The people behind The Constitutional Crown.
     </p>
 
-    <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="credits.html">Credits</a>
+    <div class="credits">
+
+        <p>
+            <strong style="color:#d4af37;">
+                The Constitutional Crown
+            </strong>
+        </p>
+
+        <p>
+            Game Development<br>
+            Map Development<br>
+            Systems Development<br>
+            Community Management<br>
+            Website Development
+        </p>
+
+        <p style="margin-top:20px;">
+            More credits will be added as the project develops.
+        </p>
+
     </div>
 
-    <small>
-        © 2026 The Constitutional Crown
-    </small>
+    <a href="index.html" class="back">
+        ← RETURN TO TCC
+    </a>
 
-</footer>
+</div>
 
 </body>
 </html>
