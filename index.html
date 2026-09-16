@@ -1,203 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Constitutional Crown</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Constitutional Crown</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Animated background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,.16), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(212,175,55,.10), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(255,255,255,.04), transparent 30%);
+    animation: backgroundMove 15s ease-in-out infinite alternate;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(rgba(212,175,55,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,.025) 1px, transparent 1px);
+    background-size: 70px 70px;
+    pointer-events: none;
+}
+
+@keyframes backgroundMove {
+    from {
+        transform: translate(-2%, -2%) scale(1);
+    }
+    to {
+        transform: translate(2%, 2%) scale(1.08);
+    }
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: rgba(5,5,5,.78);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(212,175,55,.18);
+    z-index: 1000;
+}
+
+.logo {
+    color: #d4af37;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.navlinks {
+    display: flex;
+    gap: 30px;
+}
+
+.navlinks a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .25s;
+}
+
+.navlinks a:hover {
+    color: #d4af37;
+}
+
+/* Hero */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 80px;
+}
+
+.hero-content {
+    max-width: 900px;
+    animation: heroIn 1.2s ease;
+}
+
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.crown {
+    font-size: 62px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(212,175,55,.3));
+}
+
+h1 {
+    font-size: clamp(45px, 8vw, 92px);
+    line-height: .95;
+    letter-spacing: -3px;
+    margin-bottom: 22px;
+}
+
+.gold {
+    color: #d4af37;
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: auto;
+}
+
+.buttons {
+    margin-top: 38px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 27px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .25s;
+    border: 1px solid #d4af37;
+}
+
+.btn-gold {
+    background: #d4af37;
+    color: #050505;
+}
+
+.btn-dark {
+    background: rgba(255,255,255,.03);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(212,175,55,.18);
+}
+
+/* Countdown */
+.countdown-section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.section-title {
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: clamp(30px, 5vw, 50px);
+    margin-bottom: 35px;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    min-width: 130px;
+    padding: 25px 18px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(212,175,55,.22);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.time-number {
+    color: #d4af37;
+    font-size: 38px;
+    font-weight: 800;
+}
+
+.time-label {
+    margin-top: 5px;
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* Features */
+.features {
+    padding: 100px 7%;
+}
+
+.feature-grid {
+    max-width: 1150px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    padding: 35px;
+    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    border: 1px solid rgba(212,175,55,.16);
+    border-radius: 12px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212,175,55,.55);
+}
+
+.card-icon {
+    font-size: 30px;
+    margin-bottom: 18px;
+}
+
+.card h3 {
+    color: #d4af37;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.card p {
+    color: #999;
+    line-height: 1.7;
+}
+
+/* Admin */
+.admin {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.admin-box {
+    max-width: 500px;
+    margin: auto;
+    padding: 35px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(212,175,55,.2);
+    border-radius: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    background: #0d0d0d;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 6px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #d4af37;
+}
+
+.admin-message {
+    margin-top: 20px;
+    color: #d4af37;
+    font-weight: bold;
+    min-height: 25px;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid rgba(212,175,55,.15);
+    padding: 35px 20px;
+    text-align: center;
+    color: #666;
+}
+
+footer span {
+    color: #d4af37;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+    nav {
+        padding: 0 20px;
+    }
+
+    .navlinks {
+        gap: 15px;
+    }
+
+    .navlinks a {
+        font-size: 12px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .time-box {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 500px) {
+    nav {
+        height: 65px;
+    }
+
+    .logo {
+        font-size: 15px;
+    }
+
+    .navlinks a:nth-child(3) {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 100px;
+    }
+
+    .crown {
+        font-size: 45px;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<nav>
     <div class="logo">TCC</div>
 
-    <nav>
-        <a href="index.html">Home</a>
+    <div class="navlinks">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#countdown">Release</a>
         <a href="credits.html">Credits</a>
-        <a href="#admin">Admin Panel</a>
-    </nav>
-</header>
+    </div>
+</nav>
 
-<main>
+<section class="hero" id="home">
+    <div class="hero-content">
 
-    <section class="hero">
-        <div class="gold-line"></div>
+        <div class="crown">♛</div>
 
-        <p class="eyebrow">THE CONSTITUTIONAL CROWN</p>
+        <h1>
+            THE <span class="gold">CONSTITUTIONAL</span><br>
+            CROWN
+        </h1>
 
-        <h1>YOUR WORLD.<br><span>YOUR CROWN.</span></h1>
-
-        <p class="description">
-            A new Roblox roleplay experience built around government,
-            power, economy, law and the people who control them.
+        <p class="subtitle">
+            A new generation of Roblox roleplay.
+            Build your legacy, rise through society,
+            control your future, and shape the Crown.
         </p>
 
         <div class="buttons">
-            <a class="button primary" href="#" id="playButton">
+
+            <!-- ROBLOX COMING SOON -->
+            <a class="btn btn-gold"
+               href="#"
+               onclick="comingSoon(event)">
                 PLAY TCC
             </a>
 
-            <a class="button secondary" href="#" id="discordButton">
+            <!-- DISCORD -->
+            <a class="btn btn-dark"
+               href="https://discord.gg/ReXwEwnaEW"
+               target="_blank">
                 JOIN DISCORD
             </a>
-        </div>
-    </section>
-
-
-    <section class="countdown-section">
-
-        <p class="eyebrow">THE COUNTDOWN HAS BEGUN</p>
-
-        <h2>RELEASE</h2>
-
-        <div class="countdown">
-
-            <div class="time-box">
-                <span id="days">00</span>
-                <small>DAYS</small>
-            </div>
-
-            <div class="time-box">
-                <span id="hours">00</span>
-                <small>HOURS</small>
-            </div>
-
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <small>MINUTES</small>
-            </div>
-
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <small>SECONDS</small>
-            </div>
 
         </div>
 
-        <p class="release-date">
-            OCTOBER 1, 2026
-        </p>
+    </div>
+</section>
 
-    </section>
+<section class="countdown-section" id="countdown">
 
+    <div class="section-title">The Crown Approaches</div>
 
-    <section class="features">
+    <h2>Release Countdown</h2>
 
-        <p class="eyebrow">THE WORLD</p>
-        <h2>BUILT FOR ROLEPLAY</h2>
+    <div class="countdown">
 
-        <div class="feature-grid">
-
-            <div class="feature-card">
-                <div class="feature-icon">♛</div>
-                <h3>GOVERNMENT</h3>
-                <p>
-                    Build your political career, hold power and shape
-                    the world around you.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">₿</div>
-                <h3>ECONOMY</h3>
-                <p>
-                    Earn, invest, run businesses and build your fortune.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⚖</div>
-                <h3>LAW</h3>
-                <p>
-                    Police, criminals, courts and contracts create
-                    consequences throughout the city.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">◆</div>
-                <h3>NOBLE HOUSES</h3>
-                <p>
-                    Powerful houses compete for influence and status.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">▣</div>
-                <h3>THE E-BANK</h3>
-                <p>
-                    Banking, investments and financial systems built
-                    directly into the experience.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">✦</div>
-                <h3>CONTRACTS</h3>
-                <p>
-                    Bounties, smuggling, quests and other opportunities
-                    await those willing to take the risk.
-                </p>
-            </div>
-
+        <div class="time-box">
+            <div class="time-number" id="days">00</div>
+            <div class="time-label">DAYS</div>
         </div>
 
-    </section>
+        <div class="time-box">
+            <div class="time-number" id="hours">00</div>
+            <div class="time-label">HOURS</div>
+        </div>
 
+        <div class="time-box">
+            <div class="time-number" id="minutes">00</div>
+            <div class="time-label">MINUTES</div>
+        </div>
 
-    <section class="admin-section" id="admin">
+        <div class="time-box">
+            <div class="time-number" id="seconds">00</div>
+            <div class="time-label">SECONDS</div>
+        </div>
 
-        <p class="eyebrow">RESTRICTED ACCESS</p>
+    </div>
+</section>
 
-        <h2>ADMIN PANEL</h2>
+<section class="features" id="features">
 
-        <p class="admin-description">
+    <div class="section-title">Inside TCC</div>
+
+    <h2>Built For Roleplay</h2>
+
+    <div class="feature-grid">
+
+        <div class="card">
+            <div class="card-icon">♛</div>
+            <h3>Government & Nobility</h3>
+            <p>
+                Rise through the political and social structure
+                of the Crown and establish your own legacy.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">◈</div>
+            <h3>Economy</h3>
+            <p>
+                Build wealth through banking, investments,
+                businesses and the TCC economy.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚔</div>
+            <h3>Contracts</h3>
+            <p>
+                Take on bounties, quests and dangerous contracts
+                while competing with other players.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">▣</div>
+            <h3>Modern World</h3>
+            <p>
+                Explore a living world with vehicles,
+                government facilities, cities and events.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">◉</div>
+            <h3>Dynamic Events</h3>
+            <p>
+                Unexpected events can change the world
+                and create new opportunities for players.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">◆</div>
+            <h3>Your Legacy</h3>
+            <p>
+                Your decisions, reputation and achievements
+                help determine your place within the Crown.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section class="admin">
+
+    <div class="section-title">Restricted Access</div>
+
+    <h2>Admin Panel</h2>
+
+    <div class="admin-box">
+
+        <p style="color:#888;">
             Authorized personnel only.
         </p>
 
-        <div class="admin-box">
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Enter access code">
 
-            <input
-                type="password"
-                id="adminPassword"
-                placeholder="Enter password"
-            >
+        <button
+            class="btn btn-gold"
+            onclick="adminLogin()">
+            ACCESS
+        </button>
 
-            <button onclick="loginAdmin()">
-                ACCESS
-            </button>
+        <div class="admin-message" id="adminMessage"></div>
 
-            <p id="adminResult"></p>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <div class="footer-logo">TCC</div>
-
-    <p>
-        THE CONSTITUTIONAL CROWN
-    </p>
-
-    <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="credits.html">Credits</a>
     </div>
 
-    <small>
-        © 2026 The Constitutional Crown
-    </small>
+</section>
 
+<footer>
+    <p>
+        © 2026 <span>The Constitutional Crown</span>.
+        All rights reserved.
+    </p>
 </footer>
 
+<script>
 
-<script src="script.js"></script>
+/* Countdown */
+
+const releaseDate = new Date("October 1, 2026 00:00:00").getTime();
+
+function updateCountdown() {
+
+    const now = new Date().getTime();
+    const distance = releaseDate - now;
+
+    if (distance <= 0) {
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+
+/* Roblox Coming Soon */
+
+function comingSoon(event) {
+
+    event.preventDefault();
+
+    alert("TCC is coming soon. Stay tuned for the official Roblox release.");
+}
+
+
+/* Admin */
+
+function adminLogin() {
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    const message =
+        document.getElementById("adminMessage");
+
+    if (password === "1234") {
+
+        message.textContent =
+            "sup unemployed chuds";
+
+    } else {
+
+        message.textContent =
+            "Access denied.";
+
+    }
+}
+
+</script>
 
 </body>
 </html>
